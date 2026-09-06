@@ -14,16 +14,16 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://yuan-deng-wishes.chenxiaoyi6723.chatgpt.site'),
-  title: '祈愿灯 · 一念入星河',
+  title: '祈愿灯 · 星夜幻境',
   description: '写下心愿，放飞一盏属于你的孔明灯。',
   openGraph: {
-    title: '祈愿灯 · 一念入星河',
+    title: '祈愿灯 · 星夜幻境',
     description: '写下心愿，放飞一盏属于你的孔明灯。',
     images: ['/og.png'],
   },
   twitter: {
     card: 'summary_large_image',
-    title: '祈愿灯 · 一念入星河',
+    title: '祈愿灯 · 星夜幻境',
     description: '写下心愿，放飞一盏属于你的孔明灯。',
     images: ['/og.png'],
   },
