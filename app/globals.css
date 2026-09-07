@@ -33,17 +33,27 @@
 .brand-mark{width:46px;height:54px}.brand-mark img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 9px #d9934566)}.brand-mark svg,.brand-mark b{display:none}
 .moon{background:radial-gradient(circle at 32% 27%,#b9ab8c 0 4%,transparent 5%),radial-gradient(circle at 64% 63%,#c7b998 0 7%,transparent 8%),radial-gradient(circle at 71% 29%,#d5c7a6 0 4%,transparent 5%),radial-gradient(circle at 39% 72%,#b9ab8c 0 5%,transparent 6%),radial-gradient(circle at 50% 48%,#fff3cf,#d8c59e 73%,#9d8b70);box-shadow:inset -8px -6px 13px #786c5966,0 0 40px #e6c17566,0 0 110px #b8d0c733}.moon:before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 25% 54%,#988d7770 0 5%,transparent 6%),radial-gradient(circle at 58% 18%,#a89b8180 0 4%,transparent 5%),radial-gradient(circle at 73% 72%,#a89b8170 0 5%,transparent 6%);opacity:.75}.moon:after{z-index:2;background:#092027;box-shadow:-8px 0 9px #06181d99}
 .lotus-lamp{background-image:url('/lotus-lantern-v2.png');background-size:contain;background-position:center;mix-blend-mode:normal;filter:drop-shadow(0 0 10px #f0a644aa)}.lotus-amber{filter:sepia(.12) saturate(1.08) drop-shadow(0 0 10px #efa248aa)}.lotus-red{filter:hue-rotate(336deg) saturate(1.35) brightness(.88) drop-shadow(0 0 11px #d4623aaa)}.lotus-ivory{filter:saturate(.58) brightness(1.15) drop-shadow(0 0 12px #f5d38dcc)}
+.lotus-lamp{-webkit-mask-image:radial-gradient(ellipse 58% 52% at 50% 54%,#000 0 57%,rgba(0,0,0,.9) 68%,rgba(0,0,0,.42) 82%,transparent 100%);mask-image:radial-gradient(ellipse 58% 52% at 50% 54%,#000 0 57%,rgba(0,0,0,.9) 68%,rgba(0,0,0,.42) 82%,transparent 100%)}
 .floating-lotus{width:92px;height:76px}.ambient-lotuses>span{width:96px;height:80px}.preview-lotus,.memory-lotus{width:142px;height:118px}.wish-preview{height:132px}
 @media(max-width:700px){.brand-mark{width:40px;height:47px}.floating-lotus{width:76px;height:63px}.ambient-lotuses>span{width:82px;height:68px}.preview-lotus,.memory-lotus{width:124px;height:103px}.wish-preview{height:116px}}
 
 /* Misty Jiangnan landscape and the textured 240-frame lunar cycle. */
 .wish-app{background-image:linear-gradient(90deg,#02090dd9 0%,#06121778 35%,#06121725 68%,#02080c70 100%),linear-gradient(180deg,#04111640 0%,transparent 54%,#03101470 100%),url('/shuiyue-landscape-v1.webp');background-size:cover;background-position:center 46%;background-repeat:no-repeat}
+.wish-app.background-bright{background-image:linear-gradient(90deg,#02090da8 0%,#06121752 35%,#06121712 68%,#02080c40 100%),linear-gradient(180deg,#04111620 0%,transparent 54%,#03101442 100%),url('/shuiyue-landscape-bright-wide-v2.png');background-position:center 50%;background-size:cover}
+.brand-cluster{display:flex;align-items:center;gap:8px}.music-toggle{position:relative;display:grid;place-items:center;width:30px;height:34px;padding:2px;border:0;color:#cdbf9f;background:transparent;opacity:.72;cursor:pointer;transition:color .25s,opacity .25s,filter .25s,transform .25s}.music-toggle svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.music-toggle:hover,.music-toggle:focus-visible,.music-toggle.playing{color:#f0ca83;opacity:1;filter:drop-shadow(0 0 7px #e6a74f88)}.music-toggle.playing{animation:musicBreath 2.4s ease-in-out infinite}@keyframes musicBreath{50%{filter:drop-shadow(0 0 11px #efb55baa)}}
+.music-toggle img{display:block;width:31px;height:31px;object-fit:contain;transform-origin:50% 50%;filter:drop-shadow(0 0 3px #e8ad5699)}
+.music-toggle.playing img{animation:musicNoteSwing 2.8s ease-in-out infinite}
+@keyframes musicNoteSwing{0%,100%{transform:rotate(0deg) scale(1);filter:brightness(1) drop-shadow(0 0 3px #e8ad5699)}50%{transform:rotate(30deg) scale(1.055);filter:brightness(1.12) drop-shadow(0 0 9px #ffe3a9) drop-shadow(0 0 15px #8ee6ff8f)}}
 .night-haze{background:radial-gradient(ellipse at 48% 35%,transparent 0 28%,#01070a21 74%),linear-gradient(90deg,#01050870,transparent 34% 72%,#01050830)}
-.moon-phase-gif{position:absolute;z-index:3;right:10.6%;top:8.7%;width:138px;height:138px;object-fit:contain;mix-blend-mode:screen;pointer-events:none;transform:rotate(-15deg);filter:saturate(.92) brightness(.96)}
-.river{height:26%;background:linear-gradient(180deg,#071a1e10,#03101450 78%,#020b0e82);border-top-color:#d3a55610;mix-blend-mode:screen}
-.river:before,.river:after{opacity:.48}
+.intro{touch-action:none;-webkit-user-select:none;user-select:none;transition:max-width .45s ease,opacity .35s ease}.intro-copy{transition:opacity .28s ease,transform .42s ease,filter .35s ease}.intro-edge{position:absolute;left:0;top:50%;width:2px;height:46%;border-radius:2px;background:linear-gradient(180deg,transparent,#d9a455,transparent);opacity:0;box-shadow:0 0 9px #d9a45566;transform:translate(-8px,-50%);transition:opacity .3s}.intro.collapsed{width:34px;max-width:34px;min-height:150px;cursor:e-resize}.intro.collapsed .intro-copy{opacity:0;transform:translateX(-42px);filter:blur(4px);pointer-events:none}.intro.collapsed .intro-edge{opacity:.85}
+.moon-phase-gif{position:absolute;z-index:3;right:10.6%;top:calc(8.7% - 1.5cm);width:138px;height:138px;object-fit:contain;mix-blend-mode:screen;pointer-events:none;transform:translateY(-2.8cm) rotate(-15deg);filter:saturate(.92) brightness(.96)}
+.river{height:26%;background:linear-gradient(180deg,#071a1e10,#03101450 78%,#020b0e82);border-top:0;mix-blend-mode:screen}
+.river:before,.river:after,.river-glint{display:none}
+.reflection{top:53%;height:44%}
+.wish-app.background-bright .reflection{top:25%;height:58%}
 .water-field{height:26%}
-@media(max-width:700px){.wish-app{background-position:61% center}.moon-phase-gif{right:5.5%;top:10.5%;width:104px;height:104px}.river,.water-field{height:28%}}
+@media(max-width:700px){.wish-app{background-position:61% center}.wish-app.background-bright{background-position:72% center}.music-toggle{width:27px;height:32px}.music-toggle img{width:28px;height:28px}.moon-phase-gif{right:5.5%;top:10.5%;width:104px;height:104px}.river,.water-field{height:28%}}
+@media(min-width:701px) and (max-aspect-ratio:4/3){.wish-app.background-bright{background-position:64% center}}
 
 /* Wish journal: tap to review, long-press to reveal edit/delete actions. */
 .log-entry{position:relative;border-bottom:1px solid #e4c98c16;overflow:hidden}.log-entry-main{position:relative;width:100%;min-height:112px;padding:21px 82px 20px 34px;text-align:left;color:#f1dfbf;background:none;border:0;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}.log-entry-main:hover,.log-entry.actions-open .log-entry-main{background:#ffffff05}.log-list .log-entry-main time{font-size:10px;color:#9e8c6f}.log-list .log-entry-main p{margin:8px 0 7px;font-size:14px;line-height:1.55}.log-list .log-entry-main small{color:#687e79;font-size:10px}.log-entry-actions{position:absolute;z-index:2;right:8px;top:50%;display:flex;gap:7px;transform:translate(18px,-50%);opacity:0;pointer-events:none;transition:opacity .2s,transform .24s}.log-entry.actions-open .log-entry-actions{opacity:1;transform:translate(0,-50%);pointer-events:auto}.log-entry-actions button{display:grid;place-items:center;width:34px;height:34px;padding:0;border:1px solid #e7c78938;border-radius:50%;color:#ead8b7;background:#152b2dc7;box-shadow:0 8px 22px #0007;backdrop-filter:blur(9px);cursor:pointer}.log-entry-actions button:hover{color:#fff1d4;background:#b3793959}.log-entry-actions .delete-action{color:#d9a69a;border-color:#d78b783b}.log-entry-actions .delete-action:hover{color:#ffe0d8;background:#9f403a66}
@@ -55,3 +65,47 @@
 .dunhuang-ornament{top:0;width:210px;height:54px;opacity:.82}
 @media(max-width:700px){.dunhuang-ornament{width:168px;height:45px}}
 @media(max-width:700px){.corner-flora{width:66px;height:66px;opacity:.28}.corner-tl{left:16px;top:16px}.corner-tr{right:16px;top:16px}.corner-bl{left:16px;bottom:16px}.corner-br{right:16px;bottom:16px}}
+
+/* Adaptive mobile chrome: safe area -> navigation flow -> scene. */
+@media(max-width:700px){
+  .wish-app{
+    --mobile-safe-top:max(env(safe-area-inset-top,0px),clamp(76px,11svh,105px));
+    --mobile-nav-height:clamp(66px,9svh,76px);
+    --mobile-header-bottom:calc(var(--mobile-safe-top) + var(--mobile-nav-height));
+    background-position:61% calc(50% + clamp(20px,6svh,52px));
+  }
+  .wish-app.background-bright{background-position:72% calc(50% + clamp(20px,6svh,52px))}
+  .topbar{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-items:center;
+    gap:clamp(8px,2.6vw,16px);
+    height:var(--mobile-header-bottom);
+    padding:var(--mobile-safe-top) clamp(14px,4.5vw,20px) 0;
+    border-bottom:0;
+    background:linear-gradient(180deg,#02090ce8 0%,#031016bd 42%,#06182068 76%,transparent 100%);
+  }
+  .brand-cluster{min-width:0;gap:clamp(4px,1.7vw,8px)}
+  .brand{min-width:0;gap:clamp(7px,2.4vw,12px)}
+  .brand strong{white-space:nowrap;font-size:clamp(16px,4.6vw,18px);letter-spacing:clamp(.1em,.8vw,.2em)}
+  .brand-mark{flex:0 0 auto;width:clamp(36px,10vw,40px);height:clamp(42px,12vw,47px)}
+  .music-toggle{flex:0 0 auto}
+  .topbar nav{justify-self:end;gap:clamp(6px,2.3vw,10px)}
+  .nav-link{gap:clamp(4px,1.3vw,7px);font-size:clamp(11px,3.1vw,12px);letter-spacing:clamp(.03em,.5vw,.08em);white-space:nowrap}
+  .moon-phase-gif{top:calc(var(--mobile-header-bottom) + clamp(2px,1.2svh,12px));right:clamp(16px,5.5vw,30px);width:clamp(90px,26vw,108px);height:clamp(90px,26vw,108px)}
+  .intro{top:calc(var(--mobile-header-bottom) + clamp(22px,3.2svh,36px));left:clamp(18px,6vw,26px);max-width:min(82%,340px)}
+  .sky-field{top:calc(var(--mobile-header-bottom) + clamp(8px,1.8svh,18px))}
+  .ambient-lanterns{top:calc(var(--mobile-header-bottom) + clamp(8px,1.8svh,18px))}
+}
+@media(max-width:360px){
+  .wish-app{--mobile-safe-top:max(env(safe-area-inset-top,0px),clamp(70px,10svh,92px))}
+  .topbar{padding-inline:12px;gap:5px}
+  .brand{gap:6px}.brand strong{font-size:15px;letter-spacing:.08em}.brand-mark{width:34px;height:40px}
+  .music-toggle{width:25px}.music-toggle img{width:26px;height:26px}
+  .topbar nav{gap:4px}.nav-link{font-size:10.5px;gap:3px}
+}
+@media(max-width:700px) and (orientation:landscape){
+  .wish-app{--mobile-safe-top:max(env(safe-area-inset-top,0px),clamp(54px,16svh,78px));--mobile-nav-height:60px}
+  .intro{top:calc(var(--mobile-header-bottom) + 12px)}
+  .moon-phase-gif{top:calc(var(--mobile-header-bottom) + 2px);width:82px;height:82px}
+}

@@ -13,7 +13,7 @@ const seedWishes: Wish[] = [
   { id:3,text:'愿这一程所遇皆温柔。',date:'2026-06-11',color:'ivory',x:84,y:39,scale:.4 },
   { id:4,text:'愿未完的故事，终有好结局。',date:'2026-03-26',color:'amber',x:37,y:13,scale:.31 },
 ];
-const WATER_SAFE_AREA={minX:8,maxX:66,minY:24,maxY:78};
+const WATER_SAFE_AREA={minX:8,maxX:66,minY:68,maxY:84};
 const clamp=(value:number,min:number,max:number)=>Math.max(min,Math.min(max,value));
 const keepLotusOffBoat=(wish:Wish):Wish=>wish.kind==='water'?{...wish,x:clamp(wish.x,WATER_SAFE_AREA.minX,WATER_SAFE_AREA.maxX),y:clamp(wish.y,WATER_SAFE_AREA.minY,WATER_SAFE_AREA.maxY)}:wish;
 
@@ -43,10 +43,16 @@ export default function Home() {
   const [logActionId,setLogActionId]=useState<number|null>(null);
   const [editingWish,setEditingWish]=useState<Wish|null>(null);
   const [editText,setEditText]=useState('');
+  const [brightBackground,setBrightBackground]=useState(false);
+  const [introCollapsed,setIntroCollapsed]=useState(false);
+  const [musicOn,setMusicOn]=useState(false);
+  const audioRef=useRef<HTMLAudioElement|null>(null);
   const holdTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
   const logHoldTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
   const logLongPress=useRef(false);
   const dragRef=useRef<{id:number|null;active:boolean}>({id:null,active:false});
+  const backgroundGesture=useRef<{pointerId:number|null;startX:number;startY:number;lastX:number;lastY:number;armed:boolean;timer:ReturnType<typeof setTimeout>|null}>({pointerId:null,startX:0,startY:0,lastX:0,lastY:0,armed:false,timer:null});
+  const introGesture=useRef<{pointerId:number|null;startX:number;startY:number;lastX:number;lastY:number;armed:boolean;timer:ReturnType<typeof setTimeout>|null}>({pointerId:null,startX:0,startY:0,lastX:0,lastY:0,armed:false,timer:null});
   const stars=useMemo(()=>Array.from({length:76},(_,i)=>({left:`${(i*37.7)%100}%`,top:`${(i*19.3)%66}%`,delay:`${(i%9)*.27}s`,size:i%7===0?2:1})),[]);
 
   useEffect(()=>{
@@ -55,11 +61,67 @@ export default function Home() {
   },[]);
   useEffect(()=>{ if(ready)localStorage.setItem('qi-yuan-deng-wishes',JSON.stringify(wishes)); },[wishes,ready]);
 
+  function startBackgroundGesture(e:React.PointerEvent<HTMLElement>){
+    if(e.pointerType==='mouse'&&e.button!==0)return;
+    const target=e.target as HTMLElement;
+    if(target.closest('button, textarea, input, .wish-sheet, .memory-card, .log-panel, .lamp, .lotus-lamp'))return;
+    const gesture=backgroundGesture.current;
+    if(gesture.timer)clearTimeout(gesture.timer);
+    gesture.pointerId=e.pointerId;gesture.startX=e.clientX;gesture.startY=e.clientY;gesture.lastX=e.clientX;gesture.lastY=e.clientY;gesture.armed=false;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    gesture.timer=setTimeout(()=>{gesture.armed=true;gesture.timer=null;if('vibrate' in navigator)navigator.vibrate(12)},430);
+  }
+  function moveBackgroundGesture(e:React.PointerEvent<HTMLElement>){
+    const gesture=backgroundGesture.current;
+    if(gesture.pointerId!==e.pointerId)return;
+    gesture.lastX=e.clientX;gesture.lastY=e.clientY;
+    if(!gesture.armed&&Math.hypot(e.clientX-gesture.startX,e.clientY-gesture.startY)>18){if(gesture.timer)clearTimeout(gesture.timer);gesture.timer=null;gesture.pointerId=null;}
+  }
+  function stopBackgroundGesture(e:React.PointerEvent<HTMLElement>){
+    const gesture=backgroundGesture.current;
+    if(gesture.pointerId!==e.pointerId)return;
+    if(gesture.timer)clearTimeout(gesture.timer);
+    const dx=gesture.lastX-gesture.startX;
+    const dy=Math.abs(gesture.lastY-gesture.startY);
+    if(gesture.armed&&dy<90){
+      if(dx<-72)setIntroCollapsed(true);
+      else if(dx>72)setBrightBackground(current=>!current);
+    }
+    gesture.pointerId=null;gesture.timer=null;gesture.armed=false;
+  }
+
+  function startIntroGesture(e:React.PointerEvent<HTMLElement>){
+    if(e.pointerType==='mouse'&&e.button!==0)return;
+    e.stopPropagation();
+    const gesture=introGesture.current;
+    if(gesture.timer)clearTimeout(gesture.timer);
+    gesture.pointerId=e.pointerId;gesture.startX=e.clientX;gesture.startY=e.clientY;gesture.lastX=e.clientX;gesture.lastY=e.clientY;gesture.armed=false;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    gesture.timer=setTimeout(()=>{gesture.armed=true;gesture.timer=null;if('vibrate' in navigator)navigator.vibrate(12)},430);
+  }
+  function moveIntroGesture(e:React.PointerEvent<HTMLElement>){
+    e.stopPropagation();
+    const gesture=introGesture.current;
+    if(gesture.pointerId!==e.pointerId)return;
+    gesture.lastX=e.clientX;gesture.lastY=e.clientY;
+    if(!gesture.armed&&Math.hypot(e.clientX-gesture.startX,e.clientY-gesture.startY)>18){if(gesture.timer)clearTimeout(gesture.timer);gesture.timer=null;gesture.pointerId=null;}
+  }
+  function stopIntroGesture(e:React.PointerEvent<HTMLElement>){
+    e.stopPropagation();
+    const gesture=introGesture.current;
+    if(gesture.pointerId!==e.pointerId)return;
+    if(gesture.timer)clearTimeout(gesture.timer);
+    const dx=gesture.lastX-gesture.startX;
+    const dy=Math.abs(gesture.lastY-gesture.startY);
+    if(gesture.armed&&dy<90){if(dx<-72)setIntroCollapsed(true);else if(dx>72)setIntroCollapsed(false);}
+    gesture.pointerId=null;gesture.timer=null;gesture.armed=false;
+  }
+
   function releaseWish(){
     if(!wishText.trim())return;
-    const next:Wish={id:Date.now(),text:wishText.trim(),date:new Date().toISOString().slice(0,10),color,kind,x:49,y:kind==='sky'?62:58,scale:1};
+    const next:Wish={id:Date.now(),text:wishText.trim(),date:new Date().toISOString().slice(0,10),color,kind,x:49,y:kind==='sky'?62:74,scale:1};
     setWishes(current=>[next,...current]); setWishText(''); setComposerOpen(false);
-    window.setTimeout(()=>setWishes(current=>current.map(w=>w.id===next.id?{...w,x:kind==='sky'?58:62,y:kind==='sky'?31:48,scale:.86}:w)),80);
+    window.setTimeout(()=>setWishes(current=>current.map(w=>w.id===next.id?{...w,x:kind==='sky'?58:62,y:kind==='sky'?31:72,scale:.86}:w)),80);
   }
 
   function startHolding(e:React.PointerEvent<HTMLButtonElement>,wish:Wish){
@@ -119,23 +181,32 @@ export default function Home() {
     setLogActionId(null);
   }
 
-  return <main className="wish-app">
+  async function toggleMusic(){
+    const audio=audioRef.current;
+    if(!audio)return;
+    if(musicOn){audio.pause();setMusicOn(false);return;}
+    audio.volume=.16;
+    try{await audio.play();setMusicOn(true);}catch{setMusicOn(false);}
+  }
+
+  return <main className={`wish-app ${brightBackground?'background-bright':''}`} onPointerDown={startBackgroundGesture} onPointerMove={moveBackgroundGesture} onPointerUp={stopBackgroundGesture} onPointerCancel={stopBackgroundGesture}>
+    <audio ref={audioRef} src="/audio/kongshan-xiaoyu-loop-90s.m4a" loop preload="none" onPause={()=>setMusicOn(false)}/>
     <div className="night-haze"/><div className="stars" aria-hidden="true">{stars.map((s,i)=><i key={i} style={{left:s.left,top:s.top,animationDelay:s.delay,width:s.size,height:s.size}}/>)}</div>
-    <img className="moon-phase-gif" src="/moon-phase-textured-loop.gif" alt="" aria-hidden="true"/>
+    <img className="moon-phase-gif" src="/moon-phase-textured-transparent-v2.webp" alt="" aria-hidden="true"/>
     <div className="ambient-lanterns" aria-hidden="true">{[
       [39,13,.14,'amber'],[51,7,.21,'red'],[65,22,.12,'amber'],[80,10,.18,'amber'],[94,28,.13,'red'],
       [45,38,.18,'amber'],[59,27,.12,'amber'],[74,45,.22,'amber'],[87,33,.15,'red'],[96,52,.11,'amber'],
       [36,57,.13,'red'],[54,50,.23,'amber'],[68,62,.15,'amber'],[83,55,.12,'amber'],[92,67,.20,'red'],[71,5,.10,'amber']
     ].map(([left,top,scale,tone],i)=><span key={i} style={{left:`${left}%`,top:`${top}%`,transform:`scale(${scale})`,animationDelay:`-${i*.83}s`}}><Lamp color={tone as Wish['color']}/></span>)}</div>
-    <div className="river" aria-hidden="true"><i className="river-glint one"/><i className="river-glint two"/><i className="river-glint three"/>{wishes.filter(w=>(w.kind??'sky')==='sky').map(w=><span key={w.id} className={`reflection reflection-${w.color}`} style={{left:`${w.x}%`,'--reflection-scale':w.scale} as React.CSSProperties}/>)}</div>
+    <div className="river" aria-hidden="true">{wishes.filter(w=>(w.kind??'sky')==='sky').map(w=><span key={w.id} className={`reflection reflection-${w.color}`} style={{left:`${w.x}%`,'--reflection-scale':w.scale} as React.CSSProperties}/>)}</div>
     <header className="topbar">
-      <button className="brand" onClick={()=>{setLogOpen(false);setComposerOpen(false)}} aria-label="返回愿景"><BrandMark/><span><strong>祈愿灯</strong><small>一念入星河</small></span></button>
+      <div className="brand-cluster"><button className="brand" onClick={()=>{setLogOpen(false);setComposerOpen(false)}} aria-label="返回愿景"><BrandMark/><span><strong>祈愿灯</strong><small>一念入星河</small></span></button><button className={`music-toggle ${musicOn?'playing':''}`} onClick={toggleMusic} aria-pressed={musicOn} aria-label={musicOn?'关闭背景音乐':'播放背景音乐'} title={musicOn?'关闭《空山箫语》':'播放《空山箫语》'}><img src="/pastel-music-note.png" alt="" aria-hidden="true"/></button></div>
       <nav><button className="nav-link active"><MoonStar size={16}/>愿景</button><button className="nav-link" onClick={()=>setLogOpen(true)}><ScrollText size={16}/>祈愿簿</button></nav>
     </header>
-    <section className="intro"><span className="eyebrow">今夜 · 宜许愿</span><h1>把心愿，<br/>交给远方。</h1><p>灯火会随时光渐远，愿望不会消失。<br/>点击夜空中的灯，便能再次与那天的自己相遇。</p></section>
+    <section className={`intro ${introCollapsed?'collapsed':''}`} aria-label={introCollapsed?'题词已收起，长按向右滑动可展开':'长按向左滑动可收起题词'} onPointerDown={startIntroGesture} onPointerMove={moveIntroGesture} onPointerUp={stopIntroGesture} onPointerCancel={stopIntroGesture} onContextMenu={e=>e.preventDefault()}><span className="intro-edge" aria-hidden="true"/><div className="intro-copy"><span className="eyebrow">今夜 · 宜许愿</span><h1>把心愿，<br/>交给远方。</h1><p>灯火会随时光渐远，愿望不会消失。<br/>点击夜空中的灯，便能再次与那天的自己相遇。</p></div></section>
     <section className="sky-field" aria-label="已放飞的祈愿灯">{wishes.filter(w=>(w.kind??'sky')==='sky').map(w=><button key={w.id} className={`lantern ${movingId===w.id?'moving':''}`} aria-label={`回顾愿望：${w.text}。长按可移动`} onPointerDown={e=>startHolding(e,w)} onPointerMove={e=>moveLantern(e,w)} onPointerUp={()=>stopHolding(w)} onPointerCancel={()=>stopHolding(w,false)} onContextMenu={e=>e.preventDefault()} style={{left:`${w.x}%`,top:`${w.y}%`,'--lamp-scale':w.scale} as React.CSSProperties}><Lamp color={w.color}/></button>)}</section>
     <section className="water-field" aria-label="已放流的莲花灯"><div className="ambient-lotuses" aria-hidden="true">{[
-      ['18%', '55%', .42, 'ivory'],['52%','39%',.36,'amber']
+      ['18%', '74%', .42, 'ivory'],['52%','79%',.36,'amber']
     ].map(([left,top,scale,tone],i)=><span key={i} style={{left,top,transform:`translate(-50%,-50%) scale(${scale})`,animationDelay:`-${i*1.3}s`}}><i className="lotus-ripple"/><LotusLamp color={tone as Wish['color']}/></span>)}</div>{wishes.filter(w=>w.kind==='water').map(w=><button key={w.id} className={`floating-lotus ${movingId===w.id?'moving':''}`} aria-label={`回顾愿望：${w.text}。长按可移动`} onPointerDown={e=>startHolding(e,w)} onPointerMove={e=>moveLantern(e,w)} onPointerUp={()=>stopHolding(w)} onPointerCancel={()=>stopHolding(w,false)} onContextMenu={e=>e.preventDefault()} style={{left:`${w.x}%`,top:`${w.y}%`,'--lamp-scale':w.scale} as React.CSSProperties}><i className="lotus-ripple"/><LotusLamp color={w.color}/></button>)}</section>
     {movingId&&<div className="move-hint" role="status">拖动祈愿灯 · 松手安放</div>}
     <div className={`bottom-action ${addPrompt?'expanded':''}`}><button className="add-button" onClick={()=>setAddPrompt(v=>!v)} aria-expanded={addPrompt} aria-label="打开祈愿入口"><Plus size={25}/></button><div className="release-choices"><button className="release-label" onClick={()=>{setKind('sky');setComposerOpen(true);setAddPrompt(false)}} tabIndex={addPrompt?0:-1}>放飞一盏孔明灯</button><button className="release-label lotus-release" onClick={()=>{setKind('water');setComposerOpen(true);setAddPrompt(false)}} tabIndex={addPrompt?0:-1}>放流一盏莲花灯</button></div><span>已替你珍藏 {wishes.length} 个愿望</span></div>
