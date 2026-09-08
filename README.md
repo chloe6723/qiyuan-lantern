@@ -3,7 +3,7 @@
 > 祈愿灯系列第二主题版本 · v2.0.0  
 > 对应分支：`shuiyue-new-realm`
 
-[返回项目与版本总览](https://github.com/chloe6723/qiyuan-lantern/tree/main)
+[返回项目与版本总览](https://github.com/chloe6723/wish-lantern/tree/main)
 
 ## 在线体验
 
