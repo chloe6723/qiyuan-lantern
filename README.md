@@ -8,8 +8,8 @@
 
 | 版本 | 对应分支 | 在线网页 | 定位 | 主要内容 |
 | --- | --- | --- | --- | --- |
-| **祈愿灯 · 星夜幻境** | [`main`](https://github.com/chloe6723/qiyuan-lantern/tree/main) | [打开网页](https://yuan-deng-wishes.chenxiaoyi6723.chatgpt.site/) | 简洁的孔明灯许愿体验 | 写愿、选择灯色、放飞孔明灯、回顾愿望、祈愿簿、长按移动 |
-| **祈愿灯 · 水月新境** | [`shuiyue-new-realm`](https://github.com/chloe6723/qiyuan-lantern/tree/shuiyue-new-realm) | [打开网页](https://qiyuan-lotus-wishes.chenxiaoyi6723.chatgpt.site/) | 扩展后的山水夜境版本 | 孔明灯与莲花灯双模式、江南水月场景、动态月相、愿望编辑与删除 |
+| **祈愿灯 · 星夜幻境** | [`main`](https://github.com/chloe6723/wish-lantern/tree/main) | [打开网页](https://yuan-deng-wishes.chenxiaoyi6723.chatgpt.site/) | 简洁的孔明灯许愿体验 | 写愿、选择灯色、放飞孔明灯、回顾愿望、祈愿簿、长按移动 |
+| **祈愿灯 · 水月新境** | [`shuiyue-new-realm`](https://github.com/chloe6723/wish-lantern/tree/shuiyue-new-realm) | [打开网页](https://qiyuan-lotus-wishes.chenxiaoyi6723.chatgpt.site/) | 扩展后的山水夜境版本 | 孔明灯与莲花灯双模式、江南水月场景、动态月相、愿望编辑与删除 |
 
 ## 祈愿灯 · 星夜幻境
 
@@ -43,7 +43,7 @@
 - 修改愿望时保留原始许愿日期
 - 敦煌莲花与花草纹饰
 
-请切换至 [`shuiyue-new-realm` 分支](https://github.com/chloe6723/qiyuan-lantern/tree/shuiyue-new-realm) 查看源码、素材和对应 PRD。
+请切换至 [`shuiyue-new-realm` 分支](https://github.com/chloe6723/wish-lantern/tree/shuiyue-new-realm) 查看源码、素材和对应 PRD。
 
 ## 两个版本的区别
 
