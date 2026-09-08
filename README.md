@@ -6,14 +6,16 @@
 
 ## 版本总览
 
-| 版本 | 对应分支 | 定位 | 主要内容 |
-| --- | --- | --- | --- |
-| **祈愿灯 · 星夜幻境** | [`main`](https://github.com/chloe6723/qiyuan-lantern/tree/main) | 简洁的孔明灯许愿体验 | 写愿、选择灯色、放飞孔明灯、回顾愿望、祈愿簿、长按移动 |
-| **祈愿灯 · 水月新境** | [`shuiyue-new-realm`](https://github.com/chloe6723/qiyuan-lantern/tree/shuiyue-new-realm) | 扩展后的山水夜境版本 | 孔明灯与莲花灯双模式、江南水月场景、动态月相、愿望编辑与删除 |
+| 版本 | 对应分支 | 在线网页 | 定位 | 主要内容 |
+| --- | --- | --- | --- | --- |
+| **祈愿灯 · 星夜幻境** | [`main`](https://github.com/chloe6723/qiyuan-lantern/tree/main) | [打开网页](https://yuan-deng-wishes.chenxiaoyi6723.chatgpt.site/) | 简洁的孔明灯许愿体验 | 写愿、选择灯色、放飞孔明灯、回顾愿望、祈愿簿、长按移动 |
+| **祈愿灯 · 水月新境** | [`shuiyue-new-realm`](https://github.com/chloe6723/qiyuan-lantern/tree/shuiyue-new-realm) | [打开网页](https://qiyuan-lotus-wishes.chenxiaoyi6723.chatgpt.site/) | 扩展后的山水夜境版本 | 孔明灯与莲花灯双模式、江南水月场景、动态月相、愿望编辑与删除 |
 
 ## 祈愿灯 · 星夜幻境
 
 **版本定位：** 以夜空和孔明灯为核心的第一版愿望记录应用。
+
+[在线体验「祈愿灯 · 星夜幻境」](https://yuan-deng-wishes.chenxiaoyi6723.chatgpt.site/)
 
 - 写下并放飞孔明灯愿望
 - 琥珀、赭红、象牙三种灯色
@@ -28,6 +30,8 @@
 ## 祈愿灯 · 水月新境
 
 **版本定位：** 在第一版的许愿体验上，加入山水、月相与水灯意象的第二主题版本。
+
+[在线体验「祈愿灯 · 水月新境」](https://qiyuan-lotus-wishes.chenxiaoyi6723.chatgpt.site/)
 
 - 孔明灯与莲花灯两种祈愿方式
 - 江南雾山、古塔、石桥、夜河与乌篷船场景
