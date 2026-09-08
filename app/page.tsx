@@ -189,7 +189,7 @@ export default function Home() {
     try{await audio.play();setMusicOn(true);}catch{setMusicOn(false);}
   }
 
-  return <main className={`wish-app ${brightBackground?'background-bright':''}`} onPointerDown={startBackgroundGesture} onPointerMove={moveBackgroundGesture} onPointerUp={stopBackgroundGesture} onPointerCancel={stopBackgroundGesture}>
+  return <main className={`wish-app ${brightBackground?'background-bright':''}`} onPointerDown={startBackgroundGesture} onPointerMove={moveBackgroundGesture} onPointerUp={stopBackgroundGesture} onPointerCancel={stopBackgroundGesture} onDragStart={e=>e.preventDefault()} onContextMenu={e=>{if(!(e.target as HTMLElement).closest('input, textarea'))e.preventDefault()}}>
     <audio ref={audioRef} src="/audio/kongshan-xiaoyu-loop-90s.m4a" loop preload="none" onPause={()=>setMusicOn(false)}/>
     <div className="night-haze"/><div className="stars" aria-hidden="true">{stars.map((s,i)=><i key={i} style={{left:s.left,top:s.top,animationDelay:s.delay,width:s.size,height:s.size}}/>)}</div>
     <img className="moon-phase-gif" src="/moon-phase-textured-transparent-v2.webp" alt="" aria-hidden="true"/>
