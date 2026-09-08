@@ -5,6 +5,10 @@
 
 [返回项目与版本总览](https://github.com/chloe6723/qiyuan-lantern/tree/main)
 
+## 在线体验
+
+[打开「祈愿灯 · 水月新境」网页](https://qiyuan-lotus-wishes.chenxiaoyi6723.chatgpt.site/)
+
 “水月新境”在第一版孔明灯许愿体验的基础上，加入江南山水、月相和莲花水灯。用户可以让愿望乘风入夜，也可以随水远行，并在祈愿簿中回望旧愿。
 
 ## 版本定位
